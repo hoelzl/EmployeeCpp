@@ -17,6 +17,16 @@ Employee::Employee(int id, Name name, std::tm birthday)
 {
 }
 
+int Employee::GetId() const
+{
+    return id_;
+}
+
+Name Employee::GetName() const
+{
+    return name_;
+}
+
 bool Employee::IsBirthday(Time time) const
 {
     std::tm ctime = time.GetCTime();

@@ -22,6 +22,8 @@ public:
     bool IsAvailableForMeeting(const std::tm& time, const Location& location,
                                bool blockIfAvailable);
 
+    int GetId() const;
+    Name GetName() const;
     bool IsBirthday(Time time) const;
     double GetSalary() const;
 
