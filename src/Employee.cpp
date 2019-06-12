@@ -1,40 +1,26 @@
 // Created by Matthias Hölzl on 2019-05-28.
 //
 #include "Employee.h"
+
 #include <algorithm>
 #include <ctime>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
+#include <utility>
 
-
-Employee::Employee(int id, const EmployeeDataReader& employee_data_reader,
-                   const NameReader& name_reader, const CalendarReader& calendar_reader)
+Employee::Employee(int id, Name name, std::tm birthday)
     : id_{id}
-    , name_{id, name_reader}
-    , birthday_{}
-    , current_location_{-1}
-    , calendar_{std::make_unique<Calendar>(id, calendar_reader)}
+    , name_{std::move(name)}
+    , birthday_{birthday}
+    , calendar_{std::make_unique<Calendar>(id)}
 {
-    EmployeeData employee_data{employee_data_reader.readEmployeeData(id)};
-    birthday_ = employee_data.birthday_;
 }
 
-std::ostream& operator<<(std::ostream& stream, const Employee& employee)
+bool Employee::IsBirthday(Time time) const
 {
-    stream << "Employee{" << employee.id_ << ": " << employee.name_ << ", "
-           << std::put_time(&employee.birthday_, "%Y-%m-%d") << ", "
-           << "$" << employee.GetSalary() << "}"
-           << (employee.IsBirthday() ? " *** It's their birthday!*** " : "") << std::endl;
-    stream << *employee.calendar_;
-    return stream;
-}
-
-bool Employee::IsBirthday() const
-{
-    std::time_t current_time{std::time(nullptr)};
-    std::tm current_date{*localtime(&current_time)};
-    return (current_date.tm_mday == birthday_.tm_mday && current_date.tm_mon == birthday_.tm_mon);
+    std::tm ctime = time.GetCTime();
+    return (ctime.tm_mday == birthday_.tm_mday && ctime.tm_mon == birthday_.tm_mon);
 }
 
 double Employee::GetSalary() const
@@ -49,12 +35,21 @@ double Employee::GetSalary() const
     {
         salary *= 1.1;
     }
-    if (IsBirthday())
+    if (IsBirthday(Time(tm())))
     {
         salary += 150.0;
     }
     return salary;
 }
+
+void Employee::AddAppointments(const AppointmentProvider& appointment_provider)
+{
+    if (calendar_)
+    {
+        calendar_->AddAppointments(appointment_provider);
+    }
+}
+
 bool Employee::IsAvailableForMeeting(const std::tm& time, const Location& location,
                                      bool blockIfAvailable)
 {
@@ -75,4 +70,18 @@ bool Employee::IsAvailableForMeeting(const std::tm& time, const Location& locati
         return current_location_ == location;
     }
     return true;
+}
+
+std::ostream& operator<<(std::ostream& stream, const Employee& employee)
+{
+    stream << "Employee{" << employee.id_ << ": " << employee.name_ << ", "
+           << std::put_time(&employee.birthday_, "%Y-%m-%d") << ", "
+           << "$" << employee.GetSalary() << "}"
+           << (employee.IsBirthday(Time::Now()) ? " *** It's their birthday!*** " : "")
+           << std::endl;
+    if (employee.calendar_)
+    {
+        stream << *employee.calendar_;
+    }
+    return stream;
 }

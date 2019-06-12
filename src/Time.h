@@ -12,10 +12,10 @@ class Time
 public:
     explicit Time(const std::tm& time);
 
-    std::tm GetTime() const;
+    static Time Now();
 
+    std::tm GetCTime() const;
     bool operator==(const Time& rhs) const;
-
     bool operator<(const Time& rhs) const;
 
 private:

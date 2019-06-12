@@ -8,10 +8,8 @@
 #include <ostream>
 class Location
 {
-private:
 public:
     Location();
-
     explicit Location(int building_number);
 
 private:

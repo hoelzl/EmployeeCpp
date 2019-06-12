@@ -2,16 +2,16 @@
 // Created by tc on 2019-06-05.
 //
 
-#include "CalendarFileReader.h"
+#include "FileAppointmentProvider.h"
 #include <fstream>
 #include <iomanip>
 
-CalendarFileReader::CalendarFileReader(const char* calendar_file_name)
+FileAppointmentProvider::FileAppointmentProvider(const char* calendar_file_name)
     : calender_file_name_(calendar_file_name)
 {
 }
 
-std::map<Time, Location> CalendarFileReader::ReadCalenderData(int employee_id) const
+std::map<Time, Location> FileAppointmentProvider::ProvideAppointments(int employee_id) const
 {
     std::map<Time, Location> result{};
     std::ifstream data{calender_file_name_};

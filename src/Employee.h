@@ -5,7 +5,6 @@
 #define EMPLOYEE_EMPLOYEE_H
 
 #include "Calendar.h"
-#include "EmployeeDataReader.h"
 #include "Location.h"
 #include "Name.h"
 #include <ctime>
@@ -15,13 +14,16 @@
 class Employee
 {
 public:
-    Employee(int id, const EmployeeDataReader& employee_data_reader, const NameReader& name_reader,
-             const CalendarReader& calendar_reader);
+    Employee(int id, Name name, std::tm birthday);
 
+    void AddAppointments(const AppointmentProvider& appointment_provider);
     // If `time` is right now, checks whether the employee is in location.
     // Otherwise checks the Employee's calendar whether they already have a meeting.
     bool IsAvailableForMeeting(const std::tm& time, const Location& location,
                                bool blockIfAvailable);
+
+    bool IsBirthday(Time time) const;
+    double GetSalary() const;
 
 private:
     friend std::ostream& operator<<(std::ostream& stream, const Employee& employee);
@@ -31,9 +33,6 @@ private:
     std::tm birthday_;
     Location current_location_;
     std::unique_ptr<Calendar> calendar_;
-
-    bool IsBirthday() const;
-    double GetSalary() const;
 };
 
 std::ostream& operator<<(std::ostream& stream, const Employee& employee);

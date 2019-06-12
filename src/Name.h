@@ -5,17 +5,15 @@
 #ifndef EMPLOYEE_NAME_H
 #define EMPLOYEE_NAME_H
 
-#include "NameReader.h"
 #include <iostream>
 
 class Name
 {
 public:
-    Name(int id, const NameReader& name_reader);
+    Name(std::string first_name, std::string last_name);
 
 private:
     friend std::ostream& operator<<(std::ostream& Stream, const Name& Name);
-
     friend class Employee;
 
     std::string first_name_;

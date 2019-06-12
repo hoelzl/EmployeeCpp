@@ -1,3 +1,7 @@
+#include <utility>
+
+#include <utility>
+
 //
 // Created by tc on 2019-06-05.
 //
@@ -6,12 +10,9 @@
 #include <ctime>
 #include <fstream>
 
-Name::Name(int id, const NameReader& name_reader)
-    : first_name_{"<no given name>"}, last_name_{"<no last name>"}
+Name::Name(std::string first_name, std::string last_name)
+    : first_name_{std::move(first_name)}, last_name_{std::move(last_name)}
 {
-    NameData name_data{name_reader.readName(id)};
-    first_name_ = name_data.first_name_;
-    last_name_ = name_data.last_name_;
 }
 
 std::ostream& operator<<(std::ostream& stream, const Name& name)
