@@ -15,7 +15,7 @@ class Calendar
 {
 public:
     explicit Calendar(int employee_id, const CalendarReader& calendar_reader);
-
+    
     bool HasAppointmentAt(std::tm time, Location& location);
     void AddAppointment(std::tm time, const Location& location);
 
