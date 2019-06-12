@@ -8,12 +8,17 @@
 #include "FileAppointmentProvider.h"
 #include "gmock/gmock.h"
 
+using namespace ::testing;
+
 TEST(Employee, CreateEmployee)
 {
-    EmployeeFactory employee_factory{"employee-data.txt"};
+    const Name name = Name{"Rogers", "Nelson"};
+    const tm birthday = std::tm{0, 0, 0, 7, 5 /* tm_mon goes from 0 to 11 */, 58, 0, 0, 0};
+    const Employee unit{7, name, birthday};
 
-    Employee employee{employee_factory.CreateEmployee(1)};
-    ASSERT_TRUE(true);
+    ASSERT_THAT(unit.GetId(), Eq(7));
+    ASSERT_THAT(unit.GetName(), Eq(name));
+    ASSERT_THAT(unit.IsBirthday(Time(birthday)), Eq(true));
 }
 
 #pragma clang diagnostic pop

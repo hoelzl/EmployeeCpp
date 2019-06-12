@@ -14,6 +14,7 @@ public:
 
 private:
     friend std::ostream& operator<<(std::ostream& Stream, const Name& Name);
+    friend bool operator==(const Name& lhs, const Name& rhs);
     friend class Employee;
 
     std::string first_name_;
@@ -21,5 +22,6 @@ private:
 };
 
 std::ostream& operator<<(std::ostream& stream, const Name& name);
+bool operator==(const Name& lhs, const Name& rhs);
 
 #endif // EMPLOYEE_NAME_H

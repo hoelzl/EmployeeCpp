@@ -20,3 +20,7 @@ std::ostream& operator<<(std::ostream& stream, const Name& name)
     stream << name.first_name_ << " " << name.last_name_;
     return stream;
 }
+bool operator==(const Name& lhs, const Name& rhs)
+{
+    return lhs.first_name_ == rhs.first_name_ && lhs.last_name_ == rhs.last_name_;
+}
