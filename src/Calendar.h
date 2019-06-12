@@ -5,27 +5,16 @@
 #ifndef EMPLOYEE_CALENDAR_H
 #define EMPLOYEE_CALENDAR_H
 
+#include "CalendarReader.h"
 #include "Location.h"
+#include "Time.h"
 #include <ctime>
 #include <map>
 
 class Calendar
 {
 public:
-    class Time
-    {
-    public:
-        explicit Time(const std::tm& time);
-
-        std::tm GetTime() const;
-        bool operator==(const Time& rhs) const;
-        bool operator<(const Time& rhs) const;
-
-    private:
-        std::tm time_;
-    };
-
-    explicit Calendar(int employee_id);
+    explicit Calendar(int employee_id, const CalendarReader& calendar_reader);
 
     bool HasAppointmentAt(std::tm time, Location& location);
     void AddAppointment(std::tm time, const Location& location);

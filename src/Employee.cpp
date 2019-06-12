@@ -7,50 +7,17 @@
 #include <iomanip>
 #include <iostream>
 
-Name::Name(int id) : first_name_{"<no given name>"}, last_name_{"<no last name>"}
-{
-    std::ifstream data_{"employee-data.txt"};
-    while (data_)
-    {
-        int data_id{-1};
-        std::string first_name, last_name;
-        std::tm date{};
-        data_ >> data_id >> first_name >> last_name >> std::get_time(&date, "%Y-%m-%d");
-        if (data_id >= 0 && data_id == id)
-        {
-            first_name_ = first_name;
-            last_name_ = last_name;
-            break;
-        }
-    }
-}
 
-std::ostream& operator<<(std::ostream& stream, const Name& name)
-{
-    stream << name.first_name_ << " " << name.last_name_;
-    return stream;
-}
-
-Employee::Employee(int id)
+Employee::Employee(int id, const EmployeeDataReader& employee_data_reader,
+                   const NameReader& name_reader, const CalendarReader& calendar_reader)
     : id_{id}
-    , name_{id}
+    , name_{id, name_reader}
     , birthday_{}
     , current_location_{-1}
-    , calendar_{std::make_unique<Calendar>(id)}
+    , calendar_{std::make_unique<Calendar>(id, calendar_reader)}
 {
-    std::ifstream data{"employee-data.txt"};
-    while (data)
-    {
-        int data_id{-1};
-        std::string first_name, last_name;
-        std::tm date{};
-        data >> data_id >> first_name >> last_name >> std::get_time(&date, "%Y-%m-%d");
-        if (data_id >= 0 && data_id == id)
-        {
-            birthday_ = date;
-            break;
-        }
-    }
+    EmployeeData employee_data{employee_data_reader.readEmployeeData(id)};
+    birthday_ = employee_data.birthday_;
 }
 
 std::ostream& operator<<(std::ostream& stream, const Employee& employee)

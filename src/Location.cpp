@@ -8,6 +8,10 @@ Location::Location(int building_number) : building_number_(building_number)
 {
 }
 
+Location::Location() : building_number_{-1}
+{
+}
+
 bool operator==(Location lhs, Location rhs)
 {
     if (lhs.building_number_ < 0 || rhs.building_number_ < 0)

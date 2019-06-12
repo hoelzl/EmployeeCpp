@@ -17,6 +17,19 @@ add_library(Employee
         src/Location.h
         src/Calendar.cpp
         src/Calendar.h
+  src/CalendarReader.h
+  src/Time.cpp
+  src/Time.h
+  src/CalendarFileReader.cpp
+  src/CalendarFileReader.h
+  src/EmployeeDataReader.h
+  src/Name.cpp
+  src/Name.h
+  src/NameReader.h
+  src/NameFileReader.cpp
+  src/NameFileReader.h
+  src/EmployeeDataFileReader.cpp
+  src/EmployeeDataFileReader.h
         )
 
 add_executable(Main src/Main.cpp)
