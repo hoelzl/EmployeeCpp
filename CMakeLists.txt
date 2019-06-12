@@ -11,13 +11,13 @@ enable_testing()
 include_directories(googletest/googletest/include googletest/googlemock/include)
 
 add_library(Employee
-        src/Employee.cpp
-        src/Employee.h
-        src/Location.cpp
-        src/Location.h
-        src/Calendar.cpp
-        src/Calendar.h
-        )
+  src/Employee.cpp
+  src/Employee.h
+  src/Location.cpp
+  src/Location.h
+  src/Calendar.cpp
+  src/Calendar.h
+  )
 
 add_executable(Main src/Main.cpp)
 target_link_libraries(Main Employee)
