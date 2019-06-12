@@ -1,0 +1,7 @@
+# Payment rules
+
+- The daily salary is $100.
+- Employees whose second name is "Boss" receive a bonus of $1000.
+- Employees whose first or last name has at most three characters receive 10% extra.
+- Employees receive $150 on their birthday. This is not affected by any percentage bonus.
+
