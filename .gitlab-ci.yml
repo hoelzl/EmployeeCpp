@@ -1,0 +1,14 @@
+image: ubuntu
+
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
+before_script:
+  - apt-get update --yes
+  - apt-get install --yes cmake make g++
+
+build:
+  script:
+    - cmake .
+    - make EmployeeTest
+    - ctest EmployeeTest
