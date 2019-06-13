@@ -27,12 +27,12 @@ public:
 
     explicit Calendar(int employee_id);
 
-    int employee_id_;
     bool HasAppointmentAt(std::tm time, Location& location);
     void AddAppointment(std::tm time, const Location& location);
 
 private:
     friend std::ostream& operator<<(std::ostream& stream, const Calendar& calendar);
+    int employee_id_;
     std::map<Time, Location> appointments_{};
 };
 
