@@ -35,7 +35,7 @@ public:
                                bool blockIfAvailable);
 
 private:
-    friend std::ostream& operator<<(std::ostream& stream, const Employee& employee);
+    friend std::ostream& operator<<(std::ostream& stream, Employee& employee);
     int id_;
     Name name_;
     std::tm birthday_;
@@ -45,6 +45,6 @@ private:
     double GetSalary() const;
 };
 
-std::ostream& operator<<(std::ostream& stream, const Employee& employee);
+std::ostream& operator<<(std::ostream& stream, Employee& employee);
 
 #endif // EMPLOYEE_EMPLOYEE_H

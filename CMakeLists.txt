@@ -3,7 +3,7 @@ project(Employee)
 
 set(CMAKE_CXX_STANDARD 17)
 
-file(COPY employee-data.txt employee-calendars.txt DESTINATION .)
+file(COPY employee-data.txt employee-calendars.txt employee-locations.txt DESTINATION .)
 
 # Google Test
 add_subdirectory(googletest)

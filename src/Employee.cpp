@@ -9,13 +9,13 @@
 
 Name::Name(int id) : first_name_{"<no given name>"}, last_name_{"<no last name>"}
 {
-    std::ifstream data_{"employee-data.txt"};
-    while (data_)
+    std::ifstream employee_data{"employee-data.txt"};
+    while (employee_data)
     {
         int data_id{-1};
         std::string first_name, last_name;
         std::tm date{};
-        data_ >> data_id >> first_name >> last_name >> std::get_time(&date, "%Y-%m-%d");
+        employee_data >> data_id >> first_name >> last_name >> std::get_time(&date, "%Y-%m-%d");
         if (data_id >= 0 && data_id == id)
         {
             first_name_ = first_name;
@@ -51,14 +51,35 @@ Employee::Employee(int id)
             break;
         }
     }
+
+    std::ifstream location_data{"employee-locations.txt"};
+    while (location_data)
+    {
+        int data_id{-1};
+        int room_number{-1};
+        location_data >> data_id >> room_number;
+        if (data_id >= 0 && data_id == id)
+        {
+            current_location_ = Location{room_number};
+            break;
+        }
+    }
 }
 
-std::ostream& operator<<(std::ostream& stream, const Employee& employee)
+std::ostream& operator<<(std::ostream& stream, Employee& employee)
 {
+    std::time_t current_time{std::time(nullptr)};
+    std::tm now{*localtime(&current_time)};
+
+    Location location{2};
+
     stream << "Employee{" << employee.id_ << ": " << employee.name_ << ", "
            << std::put_time(&employee.birthday_, "%Y-%m-%d") << ", "
            << "$" << employee.GetSalary() << "}"
-           << (employee.IsBirthday() ? " *** It's their birthday!*** " : "") << std::endl;
+           << (employee.IsBirthday() ? " *** It's their birthday!*** " : "") << " - "
+           << (employee.IsAvailableForMeeting(now, location, false) ? "Available "
+                                                                    : "Not available ")
+           << "for a meeting." << std::endl;
     stream << *employee.calendar_;
     return stream;
 }
