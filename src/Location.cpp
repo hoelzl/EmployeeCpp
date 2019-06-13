@@ -4,6 +4,8 @@
 
 #include "Location.h"
 
+Location Location::user_location_{-1}; // NOLINT(cert-err58-cpp)
+
 Location::Location(int building_number) : building_number_(building_number)
 {
 }

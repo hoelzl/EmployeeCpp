@@ -11,6 +11,7 @@ class Location
 private:
 public:
     explicit Location(int building_number = -1);
+    static Location user_location_;
 
 private:
     friend bool operator==(Location lhs, Location rhs);

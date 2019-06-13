@@ -66,19 +66,28 @@ Employee::Employee(int id)
     }
 }
 
+void Employee::PrintEmployeeList(int num_employees)
+{
+    std::cout << "Employee List\n\n";
+    for (int i = 0; i < num_employees; ++i)
+    {
+        Employee employee{i};
+        std::cout << employee << std::endl;
+    }
+}
+
 std::ostream& operator<<(std::ostream& stream, Employee& employee)
 {
     std::time_t current_time{std::time(nullptr)};
     std::tm now{*localtime(&current_time)};
 
-    Location location{2};
-
     stream << "Employee{" << employee.id_ << ": " << employee.name_ << ", "
            << std::put_time(&employee.birthday_, "%Y-%m-%d") << ", "
            << "$" << employee.GetSalary() << "}"
            << (employee.IsBirthday() ? " *** It's their birthday!*** " : "") << " - "
-           << (employee.IsAvailableForMeeting(now, location, false) ? "Available "
-                                                                    : "Not available ")
+           << (employee.IsAvailableForMeeting(now, Location::user_location_, false)
+                   ? "Available "
+                   : "Not available ")
            << "for a meeting." << std::endl;
     stream << *employee.calendar_;
     return stream;

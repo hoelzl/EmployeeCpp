@@ -1,5 +1,4 @@
-//
-// Created by Dr. Matthias Hölzl (tc) on 2019-06-05.
+// Created by Dr. Matthias Hölzl on 2019-06-05.
 //
 
 #include "Calendar.h"
