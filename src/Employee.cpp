@@ -82,7 +82,6 @@ std::ostream& operator<<(std::ostream& stream, Employee& employee)
     std::tm now{*localtime(&current_time)};
 
     stream << "Employee{" << employee.id_ << ": " << employee.name_ << ", "
-           << std::put_time(&employee.birthday_, "%Y-%m-%d") << ", "
            << "$" << employee.GetSalary() << "}"
            << (employee.IsBirthday() ? " *** It's their birthday!*** " : "") << " - "
            << (employee.IsAvailableForMeeting(now, Location::user_location_, false)

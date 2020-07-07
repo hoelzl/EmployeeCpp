@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.10)
 project(Employee)
 
 set(CMAKE_CXX_STANDARD 17)
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+
 
 file(COPY employee-data.txt employee-calendars.txt employee-locations.txt DESTINATION .)
 
